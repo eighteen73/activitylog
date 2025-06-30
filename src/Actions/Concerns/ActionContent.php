@@ -94,7 +94,7 @@ trait ActionContent
             ->icon('heroicon-o-bell-alert');
     }
 
-    private function getSchema(): array
+    protected function getSchema(): array
     {
         return [
             TimeLineRepeatableEntry::make('activities')
