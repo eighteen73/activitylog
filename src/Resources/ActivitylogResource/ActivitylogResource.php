@@ -2,36 +2,36 @@
 
 namespace Rmsramos\Activitylog\Resources\ActivitylogResource;
 
-use ActivitylogForm;
+
 use Exception;
-use Filament\Facades\Filament;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Placeholder;
-use Filament\Notifications\Notification;
-use Filament\Resources\Resource;
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
+use Filament\Facades\Filament;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\Column;
+use Filament\Tables\Filters\Filter;
+use Livewire\Component as Livewire;
+use Illuminate\Support\Facades\Gate;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
-use Livewire\Component as Livewire;
-use Rmsramos\Activitylog\Actions\Concerns\ActionContent;
+use Spatie\Activitylog\Models\Activity;
+use Filament\Notifications\Notification;
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Rmsramos\Activitylog\ActivitylogPlugin;
 use Rmsramos\Activitylog\Helpers\ActivityLogHelper;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Rmsramos\Activitylog\Actions\Concerns\ActionContent;
+use Rmsramos\Activitylog\Traits\HasCustomActivityResource;
 use Rmsramos\Activitylog\RelationManagers\ActivitylogRelationManager;
 use Rmsramos\Activitylog\Resources\ActivitylogResource\Pages\ListActivitylog;
 use Rmsramos\Activitylog\Resources\ActivitylogResource\Pages\ViewActivitylog;
-use Rmsramos\Activitylog\Traits\HasCustomActivityResource;
-use Spatie\Activitylog\Models\Activity;
+use Rmsramos\Activitylog\Resources\ActivitylogResource\Schemas\ActivitylogForm;
 
 class ActivitylogResource extends Resource
 {
@@ -299,7 +299,7 @@ class ActivitylogResource extends Resource
 
                 return $indicators;
             })
-            ->form([
+            ->schema([
                 self::getDatePickerCompoment('created_from'),
                 self::getDatePickerCompoment('created_until'),
             ])
