@@ -1,7 +1,3 @@
-@php
-    use Filament\Infolists\Components\IconEntry\IconEntrySize;
-@endphp
-
 <x-dynamic-component :component="$getEntryWrapperView()" :entry="$entry">
     <div
         {{
@@ -17,7 +13,7 @@
                 @if ($icon = $getIcon($state))
                     @php
                         $color = $getColor($state) ?? 'gray';
-                        $size = $getSize($state) ?? IconEntrySize::Large;
+                        $size = $getSize($state) ?? 'lg';
                     @endphp
 
                     <x-filament::icon
@@ -25,12 +21,12 @@
                         @class([
                             'fi-in-icon-item',
                             match ($size) {
-                                IconEntrySize::ExtraSmall, 'xs' => 'fi-in-icon-item-size-xs h-3 w-3',
-                                IconEntrySize::Small, 'sm' => 'fi-in-icon-item-size-sm h-4 w-4',
-                                IconEntrySize::Medium, 'md' => 'fi-in-icon-item-size-md h-5 w-5',
-                                IconEntrySize::Large, 'lg' => 'fi-in-icon-item-size-lg h-6 w-6',
-                                IconEntrySize::ExtraLarge, 'xl' => 'fi-in-icon-item-size-xl h-7 w-7',
-                                IconEntrySize::TwoExtraLarge, IconEntrySize::ExtraExtraLarge, '2xl' => 'fi-in-icon-item-size-2xl h-8 w-8',
+                                'xs' => 'fi-in-icon-item-size-xs h-3 w-3',
+                                'sm' => 'fi-in-icon-item-size-sm h-4 w-4',
+                                'md' => 'fi-in-icon-item-size-md h-5 w-5',
+                                'lg' => 'fi-in-icon-item-size-lg h-6 w-6',
+                                'xl' => 'fi-in-icon-item-size-xl h-7 w-7',
+                                '2xl' => 'fi-in-icon-item-size-2xl h-8 w-8',
                                 default => $size,
                             },
                             match ($color) {
@@ -49,9 +45,9 @@
                 @endif
             @endforeach
         @elseif (($placeholder = $getPlaceholder()) !== null)
-            <x-filament-infolists::entries.placeholder>
+            <div class="fi-in-placeholder px-3 py-4 text-sm text-gray-400 dark:text-gray-600">
                 {{ $placeholder }}
-            </x-filament-infolists::entries.placeholder>
+            </div>
         @endif
     </div>
 </x-dynamic-component>
