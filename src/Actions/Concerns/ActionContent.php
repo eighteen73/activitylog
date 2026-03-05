@@ -7,6 +7,7 @@ use Closure;
 use Filament\Actions\StaticAction;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -124,7 +125,7 @@ trait ActionContent
     }
     protected function configureInfolist(): void
     {
-        $this->infolist(function (?Model $record, Infolist $infolist) {
+        $this->infolist(function (?Model $record, Schema $infolist) {
             $activities = $this->getActivityLogRecord($record, $this->getWithRelations());
 
             $formattedActivities = $activities->map(function ($activity) {
@@ -138,7 +139,7 @@ trait ActionContent
 
             return $infolist
                 ->state(['activities' => $formattedActivities])
-                ->schema($this->getSchema());
+                ->schema($this->getFormSchema());
         });
     }
 
@@ -151,7 +152,7 @@ trait ActionContent
             ->icon('heroicon-o-bell-alert');
     }
 
-    protected function getSchema(): array
+    protected function getFormSchema(): array
     {
         return [
             TimeLineRepeatableEntry::make('activities')
